@@ -60,4 +60,13 @@
     <Folder Include="dbo\Stored Procedures" />
     <Folder Include="dbo\Tables" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="dbo\Tables\WorkItems.sql" />
+    <None Include="dbo\Stored Procedures\sp_WorkItem_Create.sql" />
+    <None Include="dbo\Stored Procedures\sp_WorkItem_Update.sql" />
+    <None Include="dbo\Stored Procedures\sp_WorkItem_Delete.sql" />
+    <None Include="dbo\Stored Procedures\sp_WorkItem_GetById.sql" />
+    <None Include="dbo\Stored Procedures\sp_WorkItem_GetAll.sql" />
+    <None Include="dbo\Stored Procedures\sp_WorkItem_Merge.sql" />
+  </ItemGroup>
 </Project>

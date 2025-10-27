@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[WorkItems]
+(
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Title NVARCHAR(200) NOT NULL,
+    Description NVARCHAR(MAX) NULL,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    LastUpdatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
+);
+
+CREATE INDEX IX_WorkItems_LastUpdatedAt ON dbo.WorkItems (LastUpdatedAt DESC);
