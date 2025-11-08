@@ -10,7 +10,7 @@ BEGIN
     DECLARE @sql NVARCHAR(MAX);
 
     SET @sql = '
-        SELECT Id, Title, Description, CreatedAt, LastUpdatedAt
+        SELECT TOP (10) Id, Title, Description, CreatedAt, LastUpdatedAt
         FROM WorkItems
         ORDER BY LastUpdatedAt ' + @SortOrder;
 
