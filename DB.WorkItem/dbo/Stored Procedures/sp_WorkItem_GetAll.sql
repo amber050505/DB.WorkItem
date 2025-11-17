@@ -1,18 +1,27 @@
 ﻿CREATE PROCEDURE sp_WorkItem_GetAll
-    @SortOrder NVARCHAR(4) = 'DESC'
+    @PageNumber INT = 1
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    IF @SortOrder NOT IN ('ASC', 'DESC')
-        SET @SortOrder = 'DESC';
+    IF @PageNumber < 1
+        SET @PageNumber = 1;
 
-    DECLARE @sql NVARCHAR(MAX);
+    DECLARE @SQL NVARCHAR(MAX);
 
-    SET @sql = '
-        SELECT TOP (10) Id, Title, Description, CreatedAt, LastUpdatedAt
+    SET @SQL = '
+        SELECT Id, Title, Description, CreatedAt, LastUpdatedAt
         FROM WorkItems
-        ORDER BY LastUpdatedAt ' + @SortOrder;
+        ORDER BY LastUpdatedAt DESC
+        OFFSET ' + CAST((@PageNumber - 1) * 10 AS NVARCHAR(10)) + ' ROWS
+        FETCH NEXT 10 ROWS ONLY;';
 
-    EXEC sp_executesql @sql;
+    EXEC sp_executesql @SQL;
+
+    DECLARE @TotalCount INT;
+    SELECT @TotalCount = COUNT(*) FROM WorkItems;
+
+    DECLARE @TotalPages INT = CEILING(@TotalCount / 10.0);
+
+    SELECT @TotalPages AS TotalPages;
 END
